@@ -8,7 +8,8 @@ const __dirname = path.dirname(__filename);
 
 // Webpack configuration
 export default {
-  entry: "./client/src/necessary.ts",
+  entry: "./client/src/index.js",
+  // entry: "./client/src/necessary.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
