@@ -10,7 +10,6 @@ app.use(express.urlencoded({ extended: true }));
 // Static files
 app.use(express.static(path.resolve(__dirname, '../client')));
 
-
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
@@ -26,7 +25,7 @@ app.use((err, req, res, next) => {
     return res.status(errorObj.status).json(errorObj.message);
 });
 
-// Start server
+// server message
 app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}...`);
 });
