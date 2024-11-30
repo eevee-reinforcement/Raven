@@ -1,11 +1,6 @@
-const pg = require('pg');
-require('dotenv').config()
-const connection = process.env.PG_URI;
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
-const client = new pg.Client({
-    connectionString: connection,
-});
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-client.connect()
-    .then(() => console.log("Database connection successful ✔️"))
-    .catch(err => console.error("Connection error", err.stack))
+module.exports = supabase;
