@@ -1,3 +1,10 @@
+/*
+    uses express to serve static files and handle http requests, while socket.io enables real time 
+    bidirectional communication between the server and clients. When a client connects, they can send and receive 
+    messages in real time. socket listens for events like "chat message" and "disconnect," 
+    and broadcasts messages to all connected clients.
+ */
+
 const express = require("express");
 const path = require("path");
 const http = require("http"); // for socket.io integration
@@ -26,6 +33,11 @@ io.on("connection", (socket) => {
     //broadcast message to all connected clients
     io.emit("chat message", msg);
   });
+
+  // handle user diconnect
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id)
+  })
 });
 
 // catch-all route handler for any requests to an unknown route
@@ -46,6 +58,6 @@ app.use((err, req, res, next) => {
 });
 
 // server message
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
