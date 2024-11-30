@@ -19,7 +19,8 @@
     "express": "^4.21.1",
     "node": "^20.18.1",
     "pg": "^8.13.1",
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
