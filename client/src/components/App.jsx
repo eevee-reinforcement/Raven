@@ -1,25 +1,37 @@
 import React from 'react';
 import { createClient } from "@supabase/supabase-js";
+import {SUPABASE_URL, SUPABASE_KEY} from "../../../server"
 
-const supabase = createClient("https://eutmuhtelnmjxioxfbud.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1dG11aHRlbG5tanhpb3hmYnVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI2NzMxMjMsImV4cCI6MjA0ODI0OTEyM30.CInfKoQipixQm4UJD8a_piZYOdd7iuaYEOUc5EV5u2o");
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const App = () => {
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = usestate([])
 
     useEffect(() => {
       getMessages();
+      getUsers();
     }, []);
 
     async function getMessages() {
-      const { data } = await supabase.from("messages").select();
+      const { data } = await supabase.from("messages").select(`*, users("*")`);
       setMessages(data);
     }
+
+    // async function getUsers() {
+    //   const { data } = await supabase.from("users").select();
+    //   setUsers(data);
+    // }
+
   return (
     <div>
       <h1>Hello world</h1>
       <ul>
         {messages.map((message) => (
-          <li key={message.message_id}>{message.user_id}: {message.message_content}</li>
+          <li key={message.message_id}>
+            {message.user_id}: 
+            {message.message_content}
+          </li>
         ))}
       </ul>
     </div>
