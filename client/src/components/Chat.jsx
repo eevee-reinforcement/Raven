@@ -57,3 +57,19 @@ const Chat = () => {
 };
 
 export default ChatApp;
+
+
+/**
+ * This is a simple React component for a real-time chat application.
+ * It establishes a connection to the server using Socket.io, listens for 
+ * incoming messages, and displays them in a chat box. 
+ * 
+ * - It uses the useEffect hook to set up a socket listener that listens for 
+ *   "chat message" events from the server and updates the message list accordingly.
+ * - It uses the useState hook to manage the messages array and the current 
+ *   input message.
+ * - When the user submits the form, it emits the "chat message" event to the 
+ *   server with the current input message and clears the input field.
+ * - When a new message is received from the server, it's appended to the 
+ *   message list.
+ */
