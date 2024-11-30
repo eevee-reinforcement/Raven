@@ -11,7 +11,7 @@ const Chat = () => {
   //listen for incoming messavges when component mounts
   useEffect(() => {
     socket.on("chat message", (msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg]);
+      setMessages((prevMessages) => [...prevMessages, { id: Date.now(), text: msg }]);
     });
 
     // clean socket listener when component unmounts
@@ -56,7 +56,7 @@ const Chat = () => {
   )
 };
 
-export default ChatApp;
+export default Chat;
 
 
 /**
