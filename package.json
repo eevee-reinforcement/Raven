@@ -1,0 +1,37 @@
+{
+  "name": "raven",
+  "version": "1.0.0",
+  "description": "hi :D",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js",
+    "tsc": "tsc --noEmit"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "node": "^20.18.1",
+    "pg": "^8.13.1",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@types/node": "^22.10.0",
+    "@types/webpack-env": "^1.18.5",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}

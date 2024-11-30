@@ -1,0 +1,1 @@
+// schema for storing messgaes
