@@ -1,8 +1,12 @@
 import React from 'react';
+import Chatroom from './Chatroom';
 
 const App = () => {
   return (
-    <div>Hello world</div>
+    <div>
+      Hello world
+      <Chatroom></Chatroom>
+    </div>
   );
 };
 
