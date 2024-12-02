@@ -4,7 +4,6 @@ import Chatroom from './Chatroom';
 const App = () => {
   return (
     <div>
-      Hello world
       <Chatroom></Chatroom>
     </div>
   );
