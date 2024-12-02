@@ -1,24 +1,24 @@
 const supabase = require('../config');
 const bcrypt = require('bcryptjs');
 
-const UserController = {
+const ManagerController = {
 
     // user registration 
-    async registerUser({ email, username, password }) {
+    async registerManager({ email, username, password }) {
 
-        const { data: existingUser, error: userError } = await supabase
-            .from('users')
-            .select('username')
-            .eq('username', username)
+        const { data: existingManager, error: managerError } = await supabase
+            .from('managers')
+            .select('manager_un')
+            .eq('manager_un', username)
             .single();
 
-        if (existingUser) {
+        if (existingManager) {
             throw new Error('Username already taken. Please select a new username.');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const { data, error } = await supabase.from('users').insert([
+        const { data, error } = await supabase.from('managers').insert([
             {
                 email,
                 username,
@@ -33,25 +33,25 @@ const UserController = {
     // sign in to existing account 
     async signIn({ username, password }) {
         const { data: user, error: userError } = await supabase
-            .from('users')
-            .select('id, username, password')
-            .eq('username', username)
+            .from('managers')
+            .select('manager_id, manager_un, manager_pw')
+            .eq('manager_un', username)
             .single();
 
         if (userError) throw new Error('Invalid username or password');
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, managers.manager_pw);
         if (!isMatch) throw new Error('Invalid username or password');
 
-        return { id: user.id, username: user.username, message: 'Sign in successful' };
+        return { id: managers.manager_id, username: managers.manager_un, message: 'Sign in successful' };
     },
 
     // reset password
     async resetPassword(email, newPassword) {
         const { data: user, error: userError } = await supabase
-            .from('users')
+            .from('managers')
             .select('*')
-            .eq('email', email)
+            .eq('manager_email', email)
             .single();
 
         if (userError) throw new Error('Email does not exist');
@@ -59,9 +59,9 @@ const UserController = {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
         const { data, error } = await supabase
-            .from('users')
+            .from('managers')
             .update({ password: hashedPassword })
-            .eq('email', email);
+            .eq('manager_email', email);
 
         if (error) throw new Error('Failed to update password');
 

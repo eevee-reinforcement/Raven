@@ -28,30 +28,30 @@ const Chat = () => {
   const handleSend = (e) => {
     e.preventDefault();
     if (message.trim()) {
-        socket.emit('chat message', message); // send message to server
-        setMessage(''); // clear input 
+      socket.emit('chat message', message); // send message to server
+      setMessage(''); // clear input 
     }
   };
 
   return (
     <div>
-        <h1>Raven Chat</h1>
-        <div className="chat-box">
-            <ul>
-                {messages.map((msg, index) => (
-                    <li key={index}>{msg}</li>
-                ))}
-            </ul>
-        </div>
-        <form onSubmit={handleSend}>
-            <input 
-            type="text" 
-            value={message}
-            onChange={handleChange}
-            placeholder="chat"
-            />
-            <button type="submit">Send</button>
-        </form>
+      <h1>Raven Chat</h1>
+      <div className="chat-box">
+        <ul>
+          {messages.map((msg, index) => (
+            <li key={index}>{msg}</li>
+          ))}
+        </ul>
+      </div>
+      <form onSubmit={handleSend}>
+        <input
+          type="text"
+          value={message}
+          onChange={handleChange}
+          placeholder="chat"
+        />
+        <button type="submit">Send</button>
+      </form>
     </div>
   )
 };
