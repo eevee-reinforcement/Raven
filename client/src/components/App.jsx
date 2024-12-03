@@ -1,11 +1,12 @@
 import React from 'react';
-import Chatroom from './Chatroom';
+// import Chat from './Chat';
+import AuthPage from './AuthPage';
 
 const App = () => {
   return (
-    <div>
-      <Chatroom></Chatroom>
-    </div>
+    <>
+      <AuthPage />
+    </>
   );
 };
 
