@@ -21,8 +21,7 @@ const AuthPage = () => {
         });
     };
 
-    const handleInputChange = (e) => {
-        const field = e.target.dataset.field; // Use data-field attribute
+    const handleInputChange = (e, field) => {
         const value = e.target.value;
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -79,20 +78,18 @@ const AuthPage = () => {
                 return (
                     <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
                         <TextField
-                            data-field="username"
                             label="Username"
                             value={formData.username}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'username')}
                             fullWidth
                             margin="normal"
                             required
                         />
                         <TextField
-                            data-field="password"
                             label="Password"
-                            type="password"
                             value={formData.password}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'password')}
+                            type="password"
                             fullWidth
                             margin="normal"
                             required
@@ -106,30 +103,27 @@ const AuthPage = () => {
                 return (
                     <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
                         <TextField
-                            data-field="email"
                             label="Email"
-                            type="email"
                             value={formData.email}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'email')}
+                            type="email"
                             fullWidth
                             margin="normal"
                             required
                         />
                         <TextField
-                            data-field="username"
                             label="Username"
                             value={formData.username}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'username')}
                             fullWidth
                             margin="normal"
                             required
                         />
                         <TextField
-                            data-field="password"
                             label="Password"
-                            type="password"
                             value={formData.password}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'password')}
+                            type="password"
                             fullWidth
                             margin="normal"
                             required
@@ -143,21 +137,19 @@ const AuthPage = () => {
                 return (
                     <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
                         <TextField
-                            data-field="email"
                             label="Email"
-                            type="email"
                             value={formData.email}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'email')}
+                            type="email"
                             fullWidth
                             margin="normal"
                             required
                         />
                         <TextField
-                            data-field="newPassword"
                             label="New Password"
-                            type="password"
                             value={formData.newPassword}
-                            onChange={handleInputChange}
+                            onChange={(e) => handleInputChange(e, 'newPassword')}
+                            type="password"
                             fullWidth
                             margin="normal"
                             required
