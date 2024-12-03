@@ -10,6 +10,8 @@ const path = require("path");
 const http = require("http"); // for socket.io integration
 const { Server } = require("socket.io");
 
+const routes = require('../server/routes/api')
+
 const app = express();
 const PORT = 3000;
 
@@ -22,6 +24,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use(express.static(path.resolve(__dirname, "../client")));
+
+app.use('/api/auth', routes);
 
 //socket.io logic
 io.on("connection", (socket) => {

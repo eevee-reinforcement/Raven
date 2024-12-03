@@ -1,6 +1,10 @@
 const supabase = require('../config');
 const bcrypt = require('bcryptjs');
 
+async function hashPassword(password) {
+    return await bcrypt.hash(password, 10);
+}
+
 const ManagerController = {
 
     // user registration 
@@ -72,5 +76,5 @@ const ManagerController = {
 
 
 module.exports = {
-    UserController,
+    ManagerController,
 };

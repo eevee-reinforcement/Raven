@@ -1,11 +1,12 @@
 const express = require('express');
-// controllers here
 const router = express.Router();
 
-// Main route --> "/register"
+const { ManagerController } = require('../controllers/manager_controller');
+// const { UserController } = require('../controllers/user_controller');
+// const { EventsController } = require('../controllers/events_controller');
 
-// Checking --> "/login"
+router.post('/signin', ManagerController.signIn);
+router.post('/register', ManagerController.registerManager);
+router.post('/reset-password', ManagerController.resetPassword);
 
-// Chatroom --> "/room-${}"
-
-// Event manager --> "/event-manager"
+module.exports = router;
