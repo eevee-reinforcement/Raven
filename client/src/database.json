@@ -1,0 +1,29 @@
+{
+  "chatrooms": {
+    "1": {
+      "name": "garage-fortune-subway"
+    }
+  },
+  "messages": {
+    "1": {
+      "username": "Ryan Gilbert",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam."
+    },
+    "2": {
+      "username": "Austin Fraser",
+      "body": "Maecenas malesuada massa vitae pretium bibendum. Etiam non lorem semper, porttitor justo rhoncus, pulvinar justo."
+    },
+    "3": {
+      "username": "Alazar Aklilu",
+      "body": "Gravida rutrum fringilla ex; cubilia habitant dui praesent tristique ullamcorper."
+    },
+    "4": {
+      "username": "Nathan Patterson",
+      "body": "Suspendisse sagittis taciti nulla magna vulputate malesuada! Tristique convallis maximus ligula elit nam accumsan. "
+    },
+    "5": {
+      "username": "Micah Ziegler",
+      "body": "Posuere nam a sapien ut duis penatibus; sed ornare eleifend. Adipiscing ipsum suspendisse platea cubilia luctus integer nibh vehicula. Dolor class dui lobortis adipiscing, luctus elit habitasse vitae."
+    }
+  }
+}
