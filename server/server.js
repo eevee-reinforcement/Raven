@@ -9,11 +9,11 @@ import express from "express";
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
-import routes from "./routes/api.js";
+// import routes from "./routes/api.js";
 
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 
 // create http server for both express and socket
 const server = http.createServer(app);
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve("client")));
 
 // mount API routes
-app.use('/api/auth', routes);
+// app.use('/api/auth', routes);
 
 //socket.io logic
 io.on("connection", (socket) => {
