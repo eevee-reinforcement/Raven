@@ -58,7 +58,6 @@ function convertTimestamp(timestamp) {
 const Chatroom = () => {
   const [countdownMessage, setCountdownMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -85,17 +84,10 @@ const Chatroom = () => {
       socket.off("chat message");
     };
   }, []);
-
-    // handle message input change
-    const handleChange = (e) => {
-      setMessage(e.target.value);
-    };
   
-    const handleSend = (e) => {
-      e.preventDefault();
+    const handleSenMessage = (message) => {
       if (message.trim()) {
         socket.emit("chat message", message); // send message to server
-        setMessage(""); // clear input
       }
     };
 
@@ -174,7 +166,7 @@ const Chatroom = () => {
           {countdownMessage}
         </Typography>
       </Box>
-      <Messages></Messages>
+      <Messages messages={messages}/>
       <TextInput roomName={`Message ${roomName.name}`}></TextInput>
     </div>
   );
