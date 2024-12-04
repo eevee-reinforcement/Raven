@@ -4,7 +4,7 @@ import App from './components/App.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import Chatroom from '../src/components/Chatroom.jsx';
 import AuthPage from '../src/components/AuthPage.jsx';
-import EventSettings from '../src/components/EventSettings.jsx';
+import RoomSettings from '../src/components/RoomSettings.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +14,7 @@ root.render(
         <Route index element={<App />} />
         <Route path="chat" element={<Chatroom />} />
         <Route path="signin" element={<AuthPage />} />
-        <Route path="event" element={<EventSettings />} />
+        <Route path="room" element={<RoomSettings />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
