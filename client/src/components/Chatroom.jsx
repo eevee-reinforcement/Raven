@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import TextInput from './TextInput.jsx';
-import Messages from './Messages.jsx';
-import database from '../database.json';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
-import TimerIcon from '@mui/icons-material/Timer';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import Tooltip from '@mui/material/Tooltip';
+import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import TextInput from "./TextInput.jsx";
+import Messages from "./Messages.jsx";
+import database from "../database.json";
+import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
+import TimerIcon from "@mui/icons-material/Timer";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import Tooltip from "@mui/material/Tooltip";
 
 // Retrieve chatroom name from mock database
-const roomName = database.chatrooms['1'];
+const roomName = database.chatrooms["1"];
+
+const socket = io("http://localhost:8080");
 
 // Helper function for development; creates a future timestamp in seconds based on number of days and hours.
 const convertToTimestamp = (days, hours) => {
@@ -53,7 +56,8 @@ function convertTimestamp(timestamp) {
 // const countdownMessage = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 
 const Chatroom = () => {
-  const [countdownMessage, setCountdownMessage] = useState('');
+  const [countdownMessage, setCountdownMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -66,15 +70,36 @@ const Chatroom = () => {
     return () => clearInterval(interval);
   });
 
+  //listen for incoming messages when component mounts
+  useEffect(() => {
+    socket.on("chat message", (msg) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { id: Date.now(), text: msg },
+      ]); // prevMessages represents current state of messages array at the time of func invocation
+    });
+
+    // clean socket listener when component unmounts
+    return () => {
+      socket.off("chat message");
+    };
+  }, []);
+  
+    const handleSendMessage = (message) => {
+      if (message.trim()) {
+        socket.emit("chat message", message); // send message to server
+      }
+    };
+
   return (
     <div>
       <Box
         aria-label="chatroom-header"
         sx={{
-          display: 'flex',
+          display: "flex",
           // alignItems: 'center',
           width: 900,
-          maxWidth: '100%',
+          maxWidth: "100%",
         }}
       >
         <Typography
@@ -82,21 +107,21 @@ const Chatroom = () => {
           variant="h4"
           gutterBottom
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '12px 12px 0px 12px',
+            display: "flex",
+            alignItems: "center",
+            padding: "12px 12px 0px 12px",
             width: 500,
-            maxWidth: '100%',
+            maxWidth: "100%",
             gap: 1,
-            overflowY: 'auto',
-            overflowX: 'hidden',
+            overflowY: "auto",
+            overflowX: "hidden",
           }}
         >
           {roomName.name}
         </Typography>
         <Box
           sx={{
-            '& > :not(style)': { m: 1 },
+            "& > :not(style)": { m: 1 },
             // padding: '8px',
           }}
         >
@@ -111,21 +136,21 @@ const Chatroom = () => {
       <Box
         aria-label="countdown-box"
         sx={{
-          display: 'flex',
-          alignItems: 'center',
+          display: "flex",
+          alignItems: "center",
           // backgroundColor: 'lightgrey',
-          padding: '8px',
-          margin: '0px',
-          width: '38%',
-          maxWidth: '100%',
-          boxSizing: 'border-box',
-          borderRadius: '8px',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          padding: "8px",
+          margin: "0px",
+          width: "38%",
+          maxWidth: "100%",
+          boxSizing: "border-box",
+          borderRadius: "8px",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
         <TimerIcon
           sx={{
-            padding: '0px 0px 0px 12px',
+            padding: "0px 0px 0px 12px",
           }}
         ></TimerIcon>
         <Typography
@@ -133,16 +158,16 @@ const Chatroom = () => {
           variant="body1"
           gutterBottom
           sx={{
-            padding: '4px 0px 0px 12px',
+            padding: "4px 0px 0px 12px",
             width: 500,
-            maxWidth: '100%',
+            maxWidth: "100%",
           }}
         >
           {countdownMessage}
         </Typography>
       </Box>
-      <Messages></Messages>
-      <TextInput roomName={`Message ${roomName.name}`}></TextInput>
+      <Messages messages={messages}/>
+      <TextInput roomName={`Message ${roomName.name}`} onSendMessage={handleSendMessage}></TextInput>
     </div>
   );
 };
