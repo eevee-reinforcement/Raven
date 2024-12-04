@@ -7,6 +7,11 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+/**
+ * Returns a color based on name of user.
+ * From https://mui.com/material-ui/react-avatar/#system-BackgroundLetterAvatars.js
+ * @param {string} string - Username.
+ */
 const stringToColor = (string) => {
   let hash = 0;
   let i;
@@ -27,6 +32,11 @@ const stringToColor = (string) => {
   return color;
 };
 
+/**
+ * Prepares a configuration for the Avatar containing a background color and initials from username.
+ * From https://mui.com/material-ui/react-avatar/#system-BackgroundLetterAvatars.js
+ * @param {string} name - Username.
+ */
 const stringAvatar = (name) => {
   return {
     sx: {
@@ -36,6 +46,10 @@ const stringAvatar = (name) => {
   };
 };
 
+/**
+ * A single Message component, containing Avatar, Username, Timestamp, and Body.
+ * @param {Object} props - Properties required to construct a Message.
+ */
 const Message = (props) => {
   return (
     <Box

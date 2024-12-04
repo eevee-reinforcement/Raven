@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import SendButton from './SendButton.jsx';
 
+/**
+ * Text input input component, used to type and send a new Message.
+ * @param {Object} props - Properties required to construct a TextInput.
+ */
 const TextInput = (props) => {
   const [userInput, setUserInput] = useState('');
 
