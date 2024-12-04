@@ -9,6 +9,7 @@ import express from "express";
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
+import cors from "cors";
 // import routes from "./routes/api.js";
 
 
@@ -17,7 +18,14 @@ const PORT = 8080;
 
 // create http server for both express and socket
 const server = http.createServer(app);
-const io = new Server(server); // attach socket to http server
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000", // should be port of front end 
+    methods: ["GET", "POST"]
+  }
+}); // attach socket to http server
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
