@@ -14,8 +14,11 @@ const TextInput = ({ roomName, onSendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSendMessage(userInput);
-    setUserInput("");
+    if (userInput.trim()) {
+      console.log('Sending message:', userInput); // Debug message
+      socket.emit("chat message", userInput); // Send to server
+      setUserInput(""); // Clear input
+    }
   };
 
   const handleChange = (e) => {

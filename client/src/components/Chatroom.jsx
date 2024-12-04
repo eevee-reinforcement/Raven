@@ -85,7 +85,7 @@ const Chatroom = () => {
     };
   }, []);
   
-    const handleSenMessage = (message) => {
+    const handleSendMessage = (message) => {
       if (message.trim()) {
         socket.emit("chat message", message); // send message to server
       }
@@ -167,7 +167,7 @@ const Chatroom = () => {
         </Typography>
       </Box>
       <Messages messages={messages}/>
-      <TextInput roomName={`Message ${roomName.name}`}></TextInput>
+      <TextInput roomName={`Message ${roomName.name}`} onSendMessage={handleSendMessage}></TextInput>
     </div>
   );
 };
