@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { io } from "socket.io-client";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -15,6 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 
 // Retrieve chatroom name from mock database
 const roomName = database.chatrooms['1'];
+
+const socket = io("http://localhost:8080");
 
 // Helper function for development; creates a future timestamp in seconds based on number of days and hours.
 const convertToTimestamp = (days, hours) => {
@@ -54,6 +57,9 @@ function convertTimestamp(timestamp) {
 
 const Chatroom = () => {
   const [countdownMessage, setCountdownMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+
 
   useEffect(() => {
     const interval = setInterval(() => {
