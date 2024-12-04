@@ -1,5 +1,5 @@
-const supabase = require('../config');
-const bcrypt = require('bcryptjs');
+import supabase from "../config.js";
+import bcrypt from "bcryptjs";
 
 const hashPassword = async (password) => {
     return await bcrypt.hash(password, 10);
@@ -79,6 +79,4 @@ const ManagerController = {
     },
 };
 
-module.exports = {
-    ManagerController,
-};
+export default ManagerController;
