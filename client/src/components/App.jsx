@@ -10,7 +10,8 @@ const App = () => {
     <>
       {/* <AuthPage /> */}
       {/* <Chatroom></Chatroom> */}
-      {/* <EventSettings></EventSettings> */}
+      {/* <RoomSettings></RoomSettings> */}
+      {/* <RoomEntry></RoomEntry> */}
       <Chat />
     </>
   );
