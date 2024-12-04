@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -49,15 +49,23 @@ function convertTimestamp(timestamp) {
 
   return { days, hours, minutes, seconds };
 }
-const { days, hours, minutes, seconds } = convertTimestamp(countdown);
 
-console.log(
-  `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-);
-
-const countdownMessage = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+// const countdownMessage = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 
 const Chatroom = () => {
+  const [countdownMessage, setCountdownMessage] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const { days, hours, minutes, seconds } = convertTimestamp(countdown);
+      setCountdownMessage(
+        `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
   return (
     <div>
       <Box
