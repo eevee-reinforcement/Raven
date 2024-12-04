@@ -1,5 +1,5 @@
 import React from 'react';
-// import Chat from './Chat';
+import Chat from './Chat';
 import AuthPage from './AuthPage';
 import Chatroom from './Chatroom';
 import EventSettings from './EventSettings';
@@ -9,7 +9,8 @@ const App = () => {
     <>
       {/* <AuthPage /> */}
       {/* <Chatroom></Chatroom> */}
-      <EventSettings></EventSettings>
+      {/* <EventSettings></EventSettings> */}
+      <Chat />
     </>
   );
 };
