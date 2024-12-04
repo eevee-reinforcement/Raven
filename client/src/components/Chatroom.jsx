@@ -86,6 +86,19 @@ const Chatroom = () => {
     };
   }, []);
 
+    // handle message input change
+    const handleChange = (e) => {
+      setMessage(e.target.value);
+    };
+  
+    const handleSend = (e) => {
+      e.preventDefault();
+      if (message.trim()) {
+        socket.emit("chat message", message); // send message to server
+        setMessage(""); // clear input
+      }
+    };
+
   return (
     <div>
       <Box
