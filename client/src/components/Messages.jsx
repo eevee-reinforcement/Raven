@@ -3,13 +3,10 @@ import Box from '@mui/material/Box';
 import Message from '../components/Message';
 import database from '../database.json';
 
-// Retrieve messages from mock database
-const messages = database.messages;
-
 /**
  * Messages component that renders all messages in the DB.
  */
-const Messages = () => {
+const Messages = ({ messages }) => {
   return (
     <div>
       <Box
@@ -33,14 +30,20 @@ const Messages = () => {
       >
         {
           /* Render a Message component for each message in the mock database  */
-          Object.keys(messages).map((key) => {
-            return (
-              <Message
-                username={messages[key].username}
-                body={messages[key].body}
-              />
-            );
-          })
+          // Object.keys(messages).map((key) => {
+          //   return (
+          //     <Message
+          //       username={messages[key].username}
+          //       body={messages[key].body}
+          //     />
+          //   );
+          // })
+        }
+        {messages.map((msg, index) => {
+          <div key ={index} style={{ padding: "5px", borderBottom: "1px solid #ddd" }}>
+            {msg.text}
+          </div>
+        })
         }
       </Box>
     </div>

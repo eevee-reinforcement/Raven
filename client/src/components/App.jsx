@@ -1,5 +1,4 @@
 import React from 'react';
-import Chat from './Chat';
 import AuthPage from './AuthPage';
 import Chatroom from './Chatroom';
 import RoomSettings from './RoomSettings';
@@ -9,10 +8,9 @@ const App = () => {
   return (
     <>
       {/* <AuthPage /> */}
-      {/* <Chatroom></Chatroom> */}
+      <Chatroom />
       {/* <RoomSettings></RoomSettings> */}
       {/* <RoomEntry></RoomEntry> */}
-      <Chat />
     </>
   );
 };
