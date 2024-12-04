@@ -1,7 +1,7 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Message from '../components/Message';
-import database from '../database.json';
+import React from "react";
+import Box from "@mui/material/Box";
+import Message from "../components/Message";
+import database from "../database.json";
 
 /**
  * Messages component that renders all messages in the DB.
@@ -13,17 +13,17 @@ const Messages = ({ messages }) => {
         component="form"
         aria-label="messages-box"
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '8px',
-          borderRadius: '8px',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "8px",
+          borderRadius: "8px",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           width: 500,
-          maxWidth: '100%',
+          maxWidth: "100%",
           gap: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
+          overflowY: "auto",
+          overflowX: "hidden",
         }}
         noValidate
         autoComplete="off"
@@ -39,12 +39,13 @@ const Messages = ({ messages }) => {
           //   );
           // })
         }
-        {messages.map((msg, index) => {
-          <div key ={index} style={{ padding: "5px", borderBottom: "1px solid #ddd" }}>
-            {msg.text}
-          </div>
-        })
-        }
+        {messages.map((msg, index) => (
+          <Message 
+            key={index}
+            username={msg.username || "Anonymous" } 
+            body={msg.text}
+          />
+        ))}
       </Box>
     </div>
   );
