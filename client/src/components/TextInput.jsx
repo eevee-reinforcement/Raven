@@ -43,6 +43,7 @@ const TextInput = ({ roomName, onSendMessage }) => {
         }}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit}
       >
         <TextField
           fullWidth

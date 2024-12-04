@@ -42,7 +42,7 @@ const Messages = ({ messages }) => {
         {messages.map((msg, index) => (
           <Message 
             key={index}
-            username={msg.username || "Anonymous" } 
+            username={"Tyler Durden"} 
             body={msg.text}
           />
         ))}
