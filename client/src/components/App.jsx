@@ -7,9 +7,9 @@ import EventSettings from './EventSettings';
 const App = () => {
   return (
     <>
-      {/* <AuthPage /> */}
+      <AuthPage />
       {/* <Chatroom></Chatroom> */}
-      <EventSettings></EventSettings>
+      {/* <EventSettings></EventSettings> */}
     </>
   );
 };
