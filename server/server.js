@@ -5,12 +5,12 @@
     and broadcasts messages to all connected clients.
  */
 
-const express = require("express");
-const path = require("path");
-const http = require("http"); // for socket.io integration
-const { Server } = require("socket.io");
+import express from "express";
+import path from "path";
+import http from "http";
+import { Server } from "socket.io";
+import routes from "./routes/api.js";
 
-const routes = require('../server/routes/api')
 
 const app = express();
 const PORT = 3000;
@@ -23,8 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
-app.use(express.static(path.resolve(__dirname, "../client")));
+app.use(express.static(path.resolve("client")));
 
+// mount API routes
 app.use('/api/auth', routes);
 
 //socket.io logic
