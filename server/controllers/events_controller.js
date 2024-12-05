@@ -66,3 +66,7 @@ const eventsController = {
     // sets qr code to empty field 
 
 }
+
+
+
+

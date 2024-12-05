@@ -1,15 +1,18 @@
 import React from 'react';
-// import Chat from './Chat';
+import Chat from './Chat';
 import AuthPage from './AuthPage';
 import Chatroom from './Chatroom';
-import EventSettings from './EventSettings';
+import RoomSettings from './RoomSettings';
+import RoomEntry from './RoomEntry';
 
 const App = () => {
   return (
     <>
       <AuthPage />
       {/* <Chatroom></Chatroom> */}
-      {/* <EventSettings></EventSettings> */}
+      {/* {/* <RoomSettings></RoomSettings> */} */}
+      {/* <RoomEntry></RoomEntry> */}
+      <Chat />
     </>
   );
 };

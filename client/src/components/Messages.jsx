@@ -6,6 +6,9 @@ import database from '../database.json';
 // Retrieve messages from mock database
 const messages = database.messages;
 
+/**
+ * Messages component that renders all messages in the DB.
+ */
 const Messages = () => {
   return (
     <div>
