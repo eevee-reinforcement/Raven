@@ -1,4 +1,4 @@
-const supabase = require('../config');
+const supabase = require('../../config');
 
 // event_id = int8 (auto-generated)
 // event_name = text

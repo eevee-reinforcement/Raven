@@ -1,4 +1,4 @@
-import supabase from "../config.js";
+import supabase from "../../config.js";
 import bcrypt from "bcryptjs";
 
 const hashPassword = async (password) => {

@@ -1,4 +1,4 @@
-const supabase = require('../config');
+const supabase = require('../../config');
 const crypto = require('crypto'); // To generate random IDs
 
 const UserController = {};
