@@ -7,3 +7,11 @@ export const getMessages = async (roomId) => {
     return data;
 }
 
+// send message to a room 
+export const sendMessage = async (roomId, username, text) => {
+    const { data, error } = await supabase
+    .from('messages')
+    .insert([{ room_id: roomId, username, text}]);
+    if (error) throw error;
+    return data;
+}
