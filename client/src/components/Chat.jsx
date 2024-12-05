@@ -1,65 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+// // import React, { useEffect, useState } from "react";
+// import { io } from "socket.io-client";
 
-// establish socket connection to server
-const socket = io("http://localhost:8080");
+// // establish socket connection to server
+// const socket = io("http://localhost:8080");
 
-const Chat = () => {
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
+// const Chat = () => {
+//   const [messages, setMessages] = useState([]);
+//   const [message, setMessage] = useState("");
 
-  //listen for incoming messavges when component mounts
-  useEffect(() => {
-    socket.on("chat message", (msg) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now(), text: msg },
-      ]); // prevMessages represents current state of messages array at the time of func invocation
-    });
+//   //listen for incoming messavges when component mounts
+//   useEffect(() => {
+//     socket.on("chat message", (msg) => {
+//       setMessages((prevMessages) => [
+//         ...prevMessages,
+//         { id: Date.now(), text: msg },
+//       ]); // prevMessages represents current state of messages array at the time of func invocation
+//     });
 
-    // clean socket listener when component unmounts
-    return () => {
-      socket.off("chat message");
-    };
-  }, []);
+//     // clean socket listener when component unmounts
+//     return () => {
+//       socket.off("chat message");
+//     };
+//   }, []);
 
-  // handle message input change
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  };
+//   // handle message input change
+//   const handleChange = (e) => {
+//     setMessage(e.target.value);
+//   };
 
-  const handleSend = (e) => {
-    e.preventDefault();
-    if (message.trim()) {
-      socket.emit("chat message", message); // send message to server
-      setMessage(""); // clear input
-    }
-  };
+//   const handleSend = (e) => {
+//     e.preventDefault();
+//     if (message.trim()) {
+//       socket.emit("chat message", message); // send message to server
+//       setMessage(""); // clear input
+//     }
+//   };
 
-  return (
-    <div>
-      <h1>Raven Chat</h1>
-      <div className="chat-box">
-        <ul>
-          {messages.map((msg, index) => (
-            <li key={index}>{msg.text}</li>
-          ))}
-        </ul>
-      </div>
-      <form onSubmit={handleSend}>
-        <input
-          type="text"
-          value={message}
-          onChange={handleChange}
-          placeholder="chat"
-        />
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <h1>Raven Chat</h1>
+//       <div className="chat-box">
+//         <ul>
+//           {messages.map((msg, index) => (
+//             <li key={index}>{msg.text}</li>
+//           ))}
+//         </ul>
+//       </div>
+//       <form onSubmit={handleSend}>
+//         <input
+//           type="text"
+//           value={message}
+//           onChange={handleChange}
+//           placeholder="chat"
+//         />
+//         <button type="submit">Send</button>
+//       </form>
+//     </div>
+//   );
+// };
 
-export default Chat;
+// export default Chat;
 
 /**
  * This is a simple React component for a real-time chat application.
