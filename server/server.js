@@ -10,7 +10,7 @@ import path from "path";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
-// import routes from "./routes/api.js";
+import routes from "./routes/api.js";
 
 
 const app = express();
@@ -25,6 +25,7 @@ const io = new Server(server, {
   }
 }); // attach socket to http server
 
+app.use('/', routes); // Integrates the room and message routes
 
 
 app.use(express.json());

@@ -1,4 +1,4 @@
-import supabase from "../config.js";
+import supabase from "../../config.js";
 import bcrypt from "bcryptjs";
 
 const hashPassword = async (password) => {
@@ -23,9 +23,9 @@ const ManagerController = {
 
         const { data, error } = await supabase.from('managers').insert([
             {
-                email,
-                username,
-                password: hashedPassword,
+                manager_email: email,
+                manager_un: username,
+                manager_pw: hashedPassword,
             },
         ]);
 
