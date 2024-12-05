@@ -1,13 +1,15 @@
 import express from 'express';
-import ManagerController from '../controllers/manager_controller.js';
-
+import RoomsController from '../controllers/roomsController.js';
+import MessagesController from '../controllers/messagesController.js';
 
 const router = express.Router();
-// const { UserController } = require('../controllers/user_controller');
-// const { EventsController } = require('../controllers/events_controller');
 
-router.post('/signin', ManagerController.signIn);
-router.post('/register', ManagerController.registerManager);
-router.post('/reset-password', ManagerController.resetPassword);
+// Room Routes under /entry
+router.post('/entry/create-room', RoomsController.createRoom); // Create a room
+router.post('/entry/join-room', RoomsController.joinRoom);     // Join a room
 
-export default router; 
+// Message Routes using the room name
+router.post('/:room_name/message', MessagesController.postMessage); // Post a message
+router.get('/:room_name/messages', MessagesController.getMessages); // Get messages for a room
+
+export default router;
