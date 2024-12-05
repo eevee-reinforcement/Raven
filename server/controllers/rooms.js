@@ -6,3 +6,10 @@ export const createRoom = async (roomName) => {
     if (error) throw error;
     return data;
 }
+
+// fetch all rooms
+export const getRooms = async () => {
+    const { data, error } = await supabase.from('rooms').select('*');
+    if (error) throw error;
+    return data;
+}
