@@ -41,4 +41,4 @@ const MessagesController = {
     },
 };
 
-module.exports = { MessagesController };
+export default MessagesController;

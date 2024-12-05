@@ -72,18 +72,17 @@ const AuthPage = () => {
     let endpoint;
     let payload;
 
+    // determine which action to perform based on selected tab
     switch (tabIndex) {
       case 0: // Create Room
-        // TODO: fix this endpoint
-        endpoint = '/api/auth/signin';
+        endpoint = '/api/entry/create-room'; // set api endpoint for creating room
         payload = {
           username: formData.username,
           roomName: formData.roomName,
         };
         break;
       case 1: // Join Room
-        // TODO: fix this endpoint
-        endpoint = '/api/auth/register';
+        endpoint = '/api/entry/join-room'; // set api endpoint for creating room
         payload = {
           username: formData.username,
           roomName: formData.roomName,
@@ -95,9 +94,12 @@ const AuthPage = () => {
     }
 
     try {
+      // make POST req to determined API endpoint with payload
       const response = await axios.post(endpoint, payload);
+
+      // if req successful - log response and show alert
       console.log('Response:', response.data);
-      alert(response.data.message); // Optional: Display response message
+      alert(response.data.message || 'Success'); // Optional: Display response message
     } catch (error) {
       console.error('Error:', error.response?.data || error.message);
       alert('An error occurred. Please try again.');
