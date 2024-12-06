@@ -120,7 +120,6 @@ const Chatroom = () => {
             },
             body: JSON.stringify({
               username: "YourUsername", // Replace with the actual username
-              room_id: roomName.id,
               message,
             }),
           }

@@ -5,12 +5,12 @@ const MessagesController = {
   // Post a message to the room
   async postMessage(req, res) {
     console.log("Received body:", req.body);
-    const { username, room_id, message } = req.body;
+    const { username, message } = req.body;
     try {
       // Insert message into the `messages` table
       const { error } = await supabase
         .from("messages")
-        .insert([{ username, room_id, message }]);
+        .insert([{ username, message }]);
 
       if (error) throw error;
 
