@@ -61,5 +61,11 @@ export default {
     historyApiFallback: true, // Ensure server works with react router
     open: true,
     hot: true,
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:8080'
+      },
+    ],
   },
 };

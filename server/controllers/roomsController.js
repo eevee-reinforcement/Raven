@@ -4,8 +4,18 @@ import supabase from '../config.js';
 const RoomsController = {
     // Create a room
     async createRoom(req, res) {
-        const { host, name, password } = req.body;
-
+        function generateRandomString() {
+            const characters =
+              'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let password = '';
+            for (let i = 0; i < 6; i++) {
+              const randomIndex = Math.floor(Math.random() * characters.length);
+              password += characters[randomIndex];
+            }
+            return password;
+          }
+        const { host, name } = req.body;
+        const password = generateRandomString();
         try {
             // Insert room into the `rooms` table
             const { data, error } = await supabase
@@ -76,4 +86,4 @@ const RoomsController = {
 };
 
 
-module.exports = { RoomsController };
+export default RoomsController;

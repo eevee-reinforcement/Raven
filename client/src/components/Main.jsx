@@ -34,7 +34,7 @@ const AuthPage = () => {
 
     setFormData((prevFormData) => {
       const updatedFormData = { ...prevFormData, [field]: value };
-      
+
       const usernameValid =
         updatedFormData.username &&
         updatedFormData.username.length > 2 &&
@@ -75,7 +75,7 @@ const AuthPage = () => {
     switch (tabIndex) {
       case 0: // Create Room
         // TODO: fix this endpoint
-        endpoint = '/api/auth/signin';
+        endpoint = '/api/entry/create-room';
         payload = {
           username: formData.username,
           roomName: formData.roomName,

@@ -9,7 +9,7 @@ import express from "express";
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
-import cors from "cors";
+// import cors from "cors";
 import routes from "./routes/api.js";
 
 

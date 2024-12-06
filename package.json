@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky",
     "build": "webpack --config webpack.config.js",
-    "start": "webpack serve --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js && node server/server.js",
     "tsc": "tsc --noEmit"
   },
   "lint-staged": {
