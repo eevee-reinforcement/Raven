@@ -85,6 +85,25 @@ const Chatroom = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchMessages = () => {
+      try {
+        const response = await fetch(`http://localhost:8080/${roomName.name}/messages`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setMessages(data);
+        } else {
+          console.error('failed to fetch messages:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    }; 
+
+    fetchMessages();
+  }, []);
+
   const handleSendMessage = async (message) => {
     if (message.trim()) {
       // emit the message to the server through the socket
