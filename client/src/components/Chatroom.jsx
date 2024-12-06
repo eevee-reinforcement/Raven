@@ -86,9 +86,23 @@ const Chatroom = () => {
   }, []);
 
   const handleSendMessage = (message) => {
-    if (message.trim()) {
-      socket.emit('chat message', message); // send message to server
+    const sentAt = new Date().toISOString();
+    const username = 'current_user'; // replace with dynamic username when available
+    const roomId = '1'; // replace with dynamic room id when availabl e
+    
+    const newMessage = { username, room_id:roomId, message };
+
+    // Display message on frontend
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    try {
+      // send msg to server through websocket
+     socket.emit('chat message', newMessage);
+
+     // save the message to database via backend API
+     const response = await fetch 
     }
+    
   };
 
   return (
