@@ -14,7 +14,9 @@ const RoomsController = {
             }
             return password;
           }
-        const { host, name } = req.body;
+        
+          const { host, name } = req.body;
+
         const password = generateRandomString();
         try {
             // Insert room into the `rooms` table
