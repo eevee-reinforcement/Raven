@@ -120,9 +120,10 @@ const Chatroom = () => {
             },
             body: JSON.stringify({
               username: "YourUsername", // Replace with the actual username
-              room_id: roomName.id,
               message,
+              room_id: '9fb7c044-5fca-4d3a-aa7a-b80df7c51b05'
             }),
+            
           }
         );
 
