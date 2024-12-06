@@ -76,4 +76,4 @@ const RoomsController = {
 };
 
 
-module.exports = { RoomsController };
+export default RoomsController;

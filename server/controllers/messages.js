@@ -7,7 +7,7 @@ export const getMessages = async (roomId) => {
     return data;
 }
 
-// send message to a room 
+// send message to a specific room 
 export const sendMessage = async (roomId, username, text) => {
     const { data, error } = await supabase
     .from('messages')
