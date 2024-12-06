@@ -86,7 +86,7 @@ const Chatroom = () => {
   }, []);
 
   useEffect(() => {
-    const fetchMessages = () => {
+    const fetchMessages = async () => {
       try {
         const response = await fetch(`http://localhost:8080/${roomName.name}/messages`);
         const data = await response.json();

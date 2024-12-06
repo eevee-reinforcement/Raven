@@ -5,7 +5,7 @@ const MessagesController = {
     // Post a message to the room
     async postMessage(req, res) {
         const { username, room_id, message } = req.body;
-
+            console.log('postMessage controller entered');
         try {
             // Insert message into the `messages` table
             const { error } = await supabase
