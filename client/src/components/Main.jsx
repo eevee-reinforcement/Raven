@@ -10,22 +10,26 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
+// TODO: Join Room's variable is now uniquely called 'username' and is not shared with Create Room
+// TODO: Join Room now needs its own piece of state called 'username'
+// TODO: 'room code' has a similar issue: back end expects 'password'
+
 const AuthPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState({
-    username: '',
-    roomName: '',
+    host: '',
+    name: '',
     roomCode: '',
   });
   const [inputValid, setInputValid] = useState(false);
-  const [usernameValid, setUsernameValid] = useState(false);
-  const [roomNameValid, setRoomNameValid] = useState(false);
+  const [hostValid, sethostValid] = useState(false);
+  const [nameValid, setnameValid] = useState(false);
 
   const handleTabChange = (_, newValue) => {
     setTabIndex(newValue);
     setFormData({
-      username: '',
-      roomName: '',
+      host: '',
+      name: '',
     });
   };
 
@@ -34,20 +38,20 @@ const AuthPage = () => {
 
     setFormData((prevFormData) => {
       const updatedFormData = { ...prevFormData, [field]: value };
-      
-      const usernameValid =
-        updatedFormData.username &&
-        updatedFormData.username.length > 2 &&
-        updatedFormData.username.length < 17;
 
-      const roomNameValid =
-        updatedFormData.roomName &&
-        updatedFormData.roomName.length > 2 &&
-        updatedFormData.roomName.length < 17;
+      const hostValid =
+        updatedFormData.host &&
+        updatedFormData.host.length > 2 &&
+        updatedFormData.host.length < 17;
 
-      setUsernameValid(usernameValid);
-      setRoomNameValid(roomNameValid);
-      setInputValid(usernameValid && roomNameValid);
+      const nameValid =
+        updatedFormData.name &&
+        updatedFormData.name.length > 2 &&
+        updatedFormData.name.length < 17;
+
+      sethostValid(hostValid);
+      setnameValid(nameValid);
+      setInputValid(hostValid && nameValid);
 
       return updatedFormData;
     });
@@ -61,7 +65,7 @@ const AuthPage = () => {
    * check for null
    *
    * CREATE ROOM:
-   * check if username is taken
+   * check if host is taken
    * check if room name is taken
    *
    */
@@ -77,15 +81,15 @@ const AuthPage = () => {
       case 0: // Create Room
         endpoint = '/api/entry/create-room'; // set api endpoint for creating room
         payload = {
-          username: formData.username,
-          roomName: formData.roomName,
+          host: formData.host,
+          name: formData.name,
         };
         break;
       case 1: // Join Room
         endpoint = '/api/entry/join-room'; // set api endpoint for creating room
         payload = {
           username: formData.username,
-          roomName: formData.roomName,
+          name: formData.name,
           roomCode: formData.roomCode,
         };
         break;
@@ -112,17 +116,17 @@ const AuthPage = () => {
         return (
           <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
             <TextField
-              label="Username"
-              value={formData.username}
-              onChange={(e) => handleInputChange(e, 'username')}
+              label="host"
+              value={formData.host}
+              onChange={(e) => handleInputChange(e, 'host')}
               fullWidth
               margin="normal"
               required
             />
             <TextField
               label="Room name"
-              value={formData.roomName}
-              onChange={(e) => handleInputChange(e, 'roomName')}
+              value={formData.name}
+              onChange={(e) => handleInputChange(e, 'name')}
               fullWidth
               margin="normal"
               required
@@ -145,8 +149,8 @@ const AuthPage = () => {
             />
             <TextField
               label="Room name"
-              value={formData.roomName}
-              onChange={(e) => handleInputChange(e, 'roomName')}
+              value={formData.name}
+              onChange={(e) => handleInputChange(e, 'name')}
               fullWidth
               margin="normal"
               required

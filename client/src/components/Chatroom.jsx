@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 // Retrieve chatroom name from mock database
 const roomName = database.chatrooms["1"];
 
-const socket = io("http://localhost:8080");
+const socket = io("http://localhost:3000");
 
 // Helper function for development; creates a future timestamp in seconds based on number of days and hours.
 const convertToTimestamp = (days, hours) => {
@@ -88,7 +88,7 @@ const Chatroom = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/${roomName.name}/messages`);
+        const response = await fetch(`http://localhost:3000/${roomName.name}/messages`);
         const data = await response.json();
 
         if (response.ok) {
@@ -112,7 +112,7 @@ const Chatroom = () => {
       // send msg to the backend to save in the database
       try {
         const response = await fetch(
-          `http://localhost:8080/${roomName.name}/message`,
+          `http://localhost:3000/${roomName.name}/message`,
           {
             method: "POST",
             headers: {
