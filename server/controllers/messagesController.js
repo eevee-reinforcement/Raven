@@ -41,8 +41,4 @@ const MessagesController = {
   },
 };
 
-<<<<<<< HEAD
 export default MessagesController;
-=======
-export default MessagesController;
->>>>>>> dev
