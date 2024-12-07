@@ -58,6 +58,15 @@ function convertTimestamp(timestamp) {
 const Chatroom = () => {
   const [countdownMessage, setCountdownMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  // const [username, setUsername] = useState("");
+
+  // // extract username from payload
+  // useEffect(() => {
+  //   console.log(`USERNAME FROM PAYLOAD ${payload.username}`);
+  //   if (payload && payload.username) {
+  //     setUsername(payload.username);
+  //   }
+  // }, [payload]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,18 +97,20 @@ const Chatroom = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/${roomName.name}/messages`);
+        const response = await fetch(
+          `http://localhost:3000/${roomName.name}/messages`
+        );
         const data = await response.json();
 
         if (response.ok) {
           setMessages(data);
         } else {
-          console.error('failed to fetch messages:', data.error);
+          console.error("failed to fetch messages:", data.error);
         }
       } catch (error) {
-        console.error('Error fetching messages:', error);
+        console.error("Error fetching messages:", error);
       }
-    }; 
+    };
 
     fetchMessages();
   }, []);
@@ -121,9 +132,8 @@ const Chatroom = () => {
             body: JSON.stringify({
               username: "YourUsername", // Replace with the actual username
               message,
-              room_id: '9fb7c044-5fca-4d3a-aa7a-b80df7c51b05'
+              room_id: "9fb7c044-5fca-4d3a-aa7a-b80df7c51b05",
             }),
-            
           }
         );
 
