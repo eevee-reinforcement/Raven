@@ -7,6 +7,7 @@ const router = express.Router();
 // Room Routes under /entry
 router.post('/api/entry/create-room', RoomsController.createRoom); // Create a room
 router.post('/api/entry/join-room', RoomsController.joinRoom);     // Join a room
+// router.get(`/api/entry/:`, RoomsController.joinRoom); 
 
 // Message Routes using the room name
 router.post('/api/:room_name/message', MessagesController.postMessage); // Post a message

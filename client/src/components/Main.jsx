@@ -9,12 +9,14 @@ import {
   Container,
 } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 // TODO: Join Room's variable is now uniquely called 'username' and is not shared with Create Room
 // TODO: Join Room now needs its own piece of state called 'username'
 // TODO: 'room code' has a similar issue: back end expects 'password'
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState({
     host: '',
@@ -101,6 +103,10 @@ const AuthPage = () => {
       // make POST req to determined API endpoint with payload
       const response = await axios.post(endpoint, payload);
 
+      if (tabIndex === 0 || tabIndex === 1 && response.status === 200) {
+        const roomName = response.data.roomName || formData.name;
+        navigate(`/api/entry/${roomName}`);
+      }
       // if req successful - log response and show alert
       console.log('Response:', response.data);
       alert(response.data.message || 'Success'); // Optional: Display response message
