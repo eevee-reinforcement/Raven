@@ -58,15 +58,15 @@ function convertTimestamp(timestamp) {
 const Chatroom = () => {
   const [countdownMessage, setCountdownMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
 
-  // extract username from payload
-  useEffect(() => {
-    console.log(`USERNAME FROM PAYLOAD ${payload.username}`);
-    if (payload && payload.username) {
-      setUsername(payload.username);
-    }
-  }, [payload]);
+  // // extract username from payload
+  // useEffect(() => {
+  //   console.log(`USERNAME FROM PAYLOAD ${payload.username}`);
+  //   if (payload && payload.username) {
+  //     setUsername(payload.username);
+  //   }
+  // }, [payload]);
 
   useEffect(() => {
     const interval = setInterval(() => {
