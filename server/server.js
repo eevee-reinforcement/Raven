@@ -16,11 +16,11 @@ import routes from "./routes/api.js";
 const app = express();
 const PORT = 3000;
 
-app.use(cors({
-  origin: 'http://localhost:8080', // Allow requests from this origin
-  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
-  credentials: true               // Include credentials if necessary
-}));
+// app.use(cors({
+//   origin: 'http://localhost:8080', // Allow requests from this origin
+//   methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+//   credentials: true               // Include credentials if necessary
+// }));
 
 // create http server for both express and socket
 const server = http.createServer(app);
@@ -40,7 +40,9 @@ app.use('/', routes); // Integrates the room and message routes
 // CORS middleware options
 const corsOptions = {
   origin: 'http://localhost:8080',
-  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+  optionsSuccessStatus: 200,
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true
 };
 
 // enable CORS for all routes
