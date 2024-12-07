@@ -9,50 +9,60 @@ import express from "express";
 import path from "path";
 import http from "http";
 import { Server } from "socket.io";
-// import cors from "cors";
+import cors from "cors";
 import routes from "./routes/api.js";
 
 
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
 
-// // create http server for both express and socket
-// const server = http.createServer(app);
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:3000", // should be port of front end 
-//     methods: ["GET", "POST"]
-//   }
-// }); // attach socket to http server
+// create http server for both express and socket
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080", // should be port of front end 
+    methods: ["GET", "POST"]
+  }
+}); // attach socket to http server
 
-app.use('/', routes); // Integrates the room and message routes
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/', routes); // Integrates the room and message routes
+
+// CORS middleware options
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+// enable CORS for all routes
+app.use(cors(corsOptions));
+
 // Static files
 app.use(express.static(path.resolve("client")));
 
 // mount API routes
-// app.use('/api/auth', routes);
+app.use('/api/auth', routes);
 
-// //socket.io logic
-// io.on("connection", (socket) => {
-//   console.log("A user connected:", socket.id);
+//socket.io logic
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
 
-//   // example of handling message event from client
-//   socket.on("chat message", (msg) => {
-//     console.log(`Message received: ${msg}`);
-//     //broadcast message to all connected clients
-//     io.emit("chat message", msg);
-//   });
+  // example of handling message event from client
+  socket.on("chat message", (msg) => {
+    console.log(`Message received: ${msg}`);
+    //broadcast message to all connected clients
+    io.emit("chat message", msg);
+  });
 
-//   // handle user diconnect
-//   socket.on('disconnect', () => {
-//     console.log('User disconnected:', socket.id)
-//   })
-// });
+  // handle user diconnect
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id)
+  })
+});
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) =>
@@ -71,11 +81,11 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-// // server message
-// server.listen(PORT, () => {
-//   console.log(`Server listening on port: ${PORT}...`);
-// });
-
-app.listen(PORT, () => {
+// server message
+server.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
+
+// app.listen(PORT, () => {
+//   console.log(`Server listening on port: ${PORT}...`);
+// });

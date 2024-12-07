@@ -57,14 +57,16 @@ export default {
   ],
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    port: 3000,
+    port: 8080,
     historyApiFallback: true, // Ensure server works with react router
     open: true,
     hot: true,
     proxy: [
       {
         context: ['/api'],
-        target: 'http://localhost:8080',
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
       },
     ],   
   },
