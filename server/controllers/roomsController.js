@@ -1,3 +1,4 @@
+import { create } from 'domain';
 import supabase from '../config.js';
 
 // Rooms Controller
@@ -28,11 +29,16 @@ const RoomsController = {
             if (error) throw error;
 
             // Add the host to the `joined_users` table
-            const { error: joinError } = await supabase
+            const { data: createdUser, error: joinError } = await supabase
                 .from('joined_users')
-                .insert([{ username: host, room_id: data[0].id, status: true }]);
+                .insert([{ username: host, room_id: data[0].id, status: true }])
+                .select();
 
             if (joinError) throw joinError;
+
+            if (createdUser) {
+                data[0].username = data[0].host;
+            };
 
             res.status(201).json({ message: 'Room created successfully', room: data[0] });
         } catch (error) {
@@ -74,11 +80,17 @@ const RoomsController = {
             }
 
             // Add user to `joined_users` table
-            const { error: joinError } = await supabase
+            const { data: joiningUser, error: joinError } = await supabase
                 .from('joined_users')
-                .upsert([{ username, room_id: room.id, status: true }]);
+                .upsert([{ username, room_id: room.id, status: true }])
+                .select();
 
             if (joinError) throw joinError;
+
+            if (joiningUser) {
+                // console.log("joiningUser[0].username", joiningUser[0].username);
+                room.username = joiningUser[0].username
+            }
 
             res.status(200).json({ message: 'Joined room successfully', room });
         } catch (error) {
