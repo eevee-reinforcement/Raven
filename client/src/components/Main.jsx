@@ -10,10 +10,6 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-// TODO: Join Room's variable is now uniquely called 'username' and is not shared with Create Room
-// TODO: Join Room now needs its own piece of state called 'username'
-// TODO: 'room code' has a similar issue: back end expects 'password'
-
 const AuthPage = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState({
