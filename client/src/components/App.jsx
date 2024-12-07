@@ -5,8 +5,8 @@ import Chatroom from './Chatroom';
 const App = () => {
   return (
     <>
-      {/* <Main /> */}
-      <Chatroom />
+      <Main />
+      {/* <Chatroom /> */}
     </>
   );
 };
