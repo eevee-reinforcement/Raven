@@ -11,27 +11,32 @@ import {
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
-// TODO: Join Room's variable is now uniquely called 'username' and is not shared with Create Room
-// TODO: Join Room now needs its own piece of state called 'username'
-// TODO: 'room code' has a similar issue: back end expects 'password'
-
 const AuthPage = () => {
   const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
   const [formData, setFormData] = useState({
     host: '',
     name: '',
-    roomCode: '',
+    room_password: '',
+    username: '',
+    room_name: '',
   });
-  const [inputValid, setInputValid] = useState(false);
-  const [hostValid, sethostValid] = useState(false);
-  const [nameValid, setnameValid] = useState(false);
+  const [createInputValid, setCreateInputValid] = useState(false);
+  const [joinInputValid, setJoinInputValid] = useState(false);
+  const [hostValid, setHostValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
+  const [usernameValid, setUsernameValid] = useState(false);
+  const [room_nameValid, setRoom_nameValid] = useState(false);
+  const [room_passwordValid, setRoom_passwordValid] = useState(false);
 
   const handleTabChange = (_, newValue) => {
     setTabIndex(newValue);
     setFormData({
       host: '',
       name: '',
+      room_password: '',
+      username: '',
+      room_name: '',
     });
   };
 
@@ -50,27 +55,32 @@ const AuthPage = () => {
         updatedFormData.name &&
         updatedFormData.name.length > 2 &&
         updatedFormData.name.length < 17;
+      
+      const usernameValid =
+        updatedFormData.username &&
+        updatedFormData.username.length > 2 &&
+        updatedFormData.username.length < 17;
+      
+      const room_nameValid =
+        updatedFormData.room_name &&
+        updatedFormData.room_name.length > 2 &&
+        updatedFormData.room_name.length < 17;
+      
+      const room_passwordValid =
+        updatedFormData.room_password &&
+        updatedFormData.room_password.length === 6;
 
-      sethostValid(hostValid);
-      setnameValid(nameValid);
-      setInputValid(hostValid && nameValid);
+      setHostValid(hostValid);
+      setNameValid(nameValid);
+      setUsernameValid(usernameValid);
+      setRoom_nameValid(room_nameValid);
+      setRoom_passwordValid(room_passwordValid);
+      setCreateInputValid(hostValid && nameValid);
+      setJoinInputValid(usernameValid && room_nameValid && room_passwordValid);
 
       return updatedFormData;
     });
   };
-
-  /**
-   *
-   * before user clicks CREATE ROOM:
-   * input validation on Room Name: a-z, A-Z, 0-9 only???
-   * character limits (min and max)
-   * check for null
-   *
-   * CREATE ROOM:
-   * check if host is taken
-   * check if room name is taken
-   *
-   */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -81,18 +91,18 @@ const AuthPage = () => {
     // determine which action to perform based on selected tab
     switch (tabIndex) {
       case 0: // Create Room
-        endpoint = '/api/entry/create-room'; // set api endpoint for creating room
+        endpoint = '/api/entry/create-room';
         payload = {
           host: formData.host,
           name: formData.name,
         };
         break;
       case 1: // Join Room
-        endpoint = '/api/entry/join-room'; // set api endpoint for creating room
+        endpoint = '/api/entry/join-room';
         payload = {
           username: formData.username,
-          name: formData.name,
-          roomCode: formData.roomCode,
+          room_name: formData.room_name,
+          room_password: formData.room_password,
         };
         break;
       default:
@@ -122,7 +132,7 @@ const AuthPage = () => {
         return (
           <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
             <TextField
-              label="host"
+              label="Username"
               value={formData.host}
               onChange={(e) => handleInputChange(e, 'host')}
               fullWidth
@@ -137,7 +147,13 @@ const AuthPage = () => {
               margin="normal"
               required
             />
-            <Button disabled={!inputValid} type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+            <Button
+              disabled={!createInputValid}
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{ mt: 2 }}
+            >
               Create Room
             </Button>
           </Box>
@@ -155,23 +171,23 @@ const AuthPage = () => {
             />
             <TextField
               label="Room name"
-              value={formData.name}
-              onChange={(e) => handleInputChange(e, 'name')}
+              value={formData.room_name}
+              onChange={(e) => handleInputChange(e, 'room_name')}
               fullWidth
               margin="normal"
               required
             />
             <TextField
               label="Room code"
-              value={formData.roomCode}
-              onChange={(e) => handleInputChange(e, 'roomCode')}
+              value={formData.room_password}
+              onChange={(e) => handleInputChange(e, 'room_password')}
               type="password"
               fullWidth
               margin="normal"
               required
             />
             <Button
-              disabled={!inputValid}
+              disabled={!joinInputValid}
               type="submit"
               variant="contained"
               fullWidth
