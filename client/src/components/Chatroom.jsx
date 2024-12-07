@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 // Retrieve chatroom name from mock database
 const roomName = database.chatrooms["1"];
 
-const socket = io("http://localhost:8080");
+const socket = io("http://localhost:3000");
 
 // Helper function for development; creates a future timestamp in seconds based on number of days and hours.
 const convertToTimestamp = (days, hours) => {
@@ -84,12 +84,57 @@ const Chatroom = () => {
       socket.off("chat message");
     };
   }, []);
-  
-    const handleSendMessage = (message) => {
-      if (message.trim()) {
-        socket.emit("chat message", message); // send message to server
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/${roomName.name}/messages`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setMessages(data);
+        } else {
+          console.error('failed to fetch messages:', data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
       }
-    };
+    }; 
+
+    fetchMessages();
+  }, []);
+
+  const handleSendMessage = async (message) => {
+    if (message.trim()) {
+      // emit the message to the server through the socket
+      socket.emit("chat message", message);
+
+      // send msg to the backend to save in the database
+      try {
+        const response = await fetch(
+          `http://localhost:3000/${roomName.name}/message`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: "YourUsername", // Replace with the actual username
+              message,
+              room_id: '9fb7c044-5fca-4d3a-aa7a-b80df7c51b05'
+            }),
+            
+          }
+        );
+
+        if (!response.ok) {
+          console.error("Failed to save message to the database.");
+        }
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
+    }
+  };
 
   return (
     <div>
@@ -166,8 +211,11 @@ const Chatroom = () => {
           {countdownMessage}
         </Typography>
       </Box>
-      <Messages messages={messages}/>
-      <TextInput roomName={`Message ${roomName.name}`} onSendMessage={handleSendMessage}></TextInput>
+      <Messages messages={messages} />
+      <TextInput
+        roomName={`Message ${roomName.name}`}
+        onSendMessage={handleSendMessage}
+      ></TextInput>
     </div>
   );
 };
